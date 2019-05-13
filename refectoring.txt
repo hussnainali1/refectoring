@@ -1,8 +1,0 @@
-private boolean mychecker(int m, int mX, int x, int t) {
-    if (m>0 && mX<100 && m<mX)
-        if (m<x+t)
-            if(x+t<mX) return true;
-        else return false;
-        else return false;
-        return false;
-}
