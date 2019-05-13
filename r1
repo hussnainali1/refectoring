@@ -1,63 +1,99 @@
-package factored1;
+Skip to content
+Why GitHub? 
+Enterprise
+Explore 
+Marketplace
+Pricing 
+Search
+
+Sign in
+Sign up
+Code  Pull requests 0  Projects 0  Pulse
+Join GitHub today
+GitHub is home to over 36 million developers working together to host and review code, manage projects, and build software together.
+
+Refactoring-Katas/Tennis/java/defactored1/TennisGame.java
+@emilybache emilybache converted tabs to spaces
+8e3bd60 on Dec 8, 2012
+81 lines (74 sloc)  2.17 KB
+    
+package defactored1;
 
 public class TennisGame {
+    
+    private int m_score1 = 0;
+    private int m_score2 = 0;
+    private String player1Name;
+    private String player2Name;
 
-	public static final String[] POINTS = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
-	
-	private int player2Score;
-	private int player1Score;
-	
-	private String player1Name;
-	private String player2Name;
+    public TennisGame(String player1Name, String player2Name) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
+    }
 
-	public TennisGame(String player1Name, String player2Name) {
-		this.player1Name = player1Name;
-		this.player2Name = player2Name;
-	}
+    public void wonPoint(String playerName) {
+        if (playerName == "player1")
+            m_score1 += 1;
+        else
+            m_score2 += 1;
+    }
 
-	public String getScore() {
-		if (someoneHasWon())
-			return "Win for " + winningPlayerName();
-
-		if (isEndgame()) {
-			if (pointsAreEven())
-				return "Deuce";
-			else
-				return "Advantage " + winningPlayerName();
-		} else {
-			if (pointsAreEven())
-				return POINTS[player1Score] + "-All";
-			else  {
-				return POINTS[player1Score] + "-" + POINTS[player2Score];
-			} 
-		}
-	}
-
-	public boolean someoneHasWon() {
-		return isEndgame() && (player1Score-player2Score >= 2 || player2Score-player1Score >= 2);
-	}
-
-	private boolean pointsAreEven() {
-		return player1Score == player2Score;
-	}
-
-	private boolean isEndgame() {
-		return player1Score > 3 || player2Score > 3;
-	}
-	
-	public String winningPlayerName() {
-		if (player1Score > player2Score)
-			return player1Name;
-		else
-			return player2Name;
-	}
-
-	public void wonPoint(String playerName) {
-		if (playerName == player1Name)
-			this.player1Score += 1;
-		else
-			this.player2Score += 1;
-		
-	}
-
+    public String getScore() {
+        String score = "";
+        int tempScore=0;
+        if (m_score1==m_score2)
+        {
+            switch (m_score1)
+            {
+                case 0:
+                        score = "Love-All";
+                    break;
+                case 1:
+                        score = "Fifteen-All";
+                    break;
+                case 2:
+                        score = "Thirty-All";
+                    break;
+                case 3:
+                        score = "Forty-All";
+                    break;
+                default:
+                        score = "Deuce";
+                    break;
+                
+            }
+        }
+        else if (m_score1>=4 || m_score2>=4)
+        {
+            int minusResult = m_score1-m_score2;
+            if (minusResult==1) score ="Advantage player1";
+            else if (minusResult ==-1) score ="Advantage player2";
+            else if (minusResult>=2) score = "Win for player1";
+            else score ="Win for player2";
+        }
+        else
+        {
+            for (int i=1; i<3; i++)
+            {
+                if (i==1) tempScore = m_score1;
+                else { score+="-"; tempScore = m_score2;}
+                switch(tempScore)
+                {
+                    case 0:
+                        score+="Love";
+                        break;
+                    case 1:
+                        score+="Fifteen";
+                        break;
+                    case 2:
+                        score+="Thirty";
+                        break;
+                    case 3:
+                        score+="Forty";
+                        break;
+                }
+            }
+        }
+        return score;
+    }
 }
