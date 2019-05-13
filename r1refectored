@@ -18,10 +18,14 @@ public class TennisGame {
 	}
 
 	public String getScore() {
+	// this method also has deep nesting of if statment in orignal code so to avoid this we neste this 
+	//this method contain to many if statment so we refactor this methid and create multiple function of this method
 		if (someoneHasWon())
 			return "Win for " + winningPlayerName();
 
 		if (isEndgame()) {
+		// in this orignal code we have to many switch statment which cause confusion so we refactor and
+		// breake Switch statment into different functions 
 			if (pointsAreEven())
 				return "Deuce";
 			else
